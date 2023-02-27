@@ -43,33 +43,29 @@ def E3(crange,binary):
 
 def decode(binary, tags, level):
     crange = (d(0), d(1))
-    value = b2f(binary)
-
     while level > 0:
         while True:
             for f in [E1, E2, E3]:
-                changed, new_crange,binary = f(crange,binary)
+                changed, new_crange, new_binary = f(crange, binary)
                 if changed:
                     crange = new_crange
-                    value = b2f(binary)
-                    print(f"0.{binary}, i.e., {value}")
-                    value = (value - crange[0]) / (crange[1] - crange[0])
+                    binary = new_binary
+                    print(f"0.{binary}, i.e., {b2f(binary)}")
                     break
             else:
                 break
 
         for i, tag in enumerate(tags):
-            if tag > value:
+            if tag > (b2f(binary) - crange[0]) / (crange[1] - crange[0]):
                 level -= 1
                 start = tags[i - 1]
                 end = tags[i]
+                print(f"{(b2f(binary) - crange[0]) / (crange[1] - crange[0])} -> {i}", end="")
                 crange = (crange[0] + (crange[1] - crange[0]) * start, crange[0] + (crange[1] - crange[0]) * end)
-                print(f"{value} -> {i} -> [{crange[0]},{crange[1]})")
-                value = (value - crange[0]) / (crange[1] - crange[0])
+                print(f" -> [{crange[0]},{crange[1]})")
                 break
 
     print("=========")
-
 
 def b2f(binary):
     value = 1
