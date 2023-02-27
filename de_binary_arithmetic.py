@@ -47,7 +47,7 @@ def decode(binary, tags, level):
 
     while level > 0:
         while True:
-            for f in [E1, E2, E3]:
+            for f in [E1, E2]:
                 changed, new_crange,binary = f(crange,binary)
                 if changed:
                     crange = new_crange
@@ -82,14 +82,14 @@ def b2f(binary):
 
 
 if __name__ == '__main__':
-    content = input("p ")
-    # content = "0.8 0.02 0.18"
+    # content = input("p ")
+    content = "0.8 0.02 0.18"
     p = [d(x) for x in content.split()]
     tags = [d(0)]
     for i in p:
         tags.append(tags[-1] + i)
-    # number = "1100011000001"
-    number = input("number ")
-    # level = 4
-    level = int(input("level "))
+    number = "1100011000001"
+    # number = input("number ")
+    level = 4
+    # level = int(input("level "))
     decode(number, tags, level)

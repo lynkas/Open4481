@@ -47,19 +47,9 @@ def encode(original, tags):
         crange = (crange[0] + distance * start, crange[0] + distance * end)
         print(f"{char_index} -> [{crange[0]},{crange[1]})")
         while True:
-            for i, f in enumerate([E1, E2, E3]):
+            for i, f in enumerate([E1, E2]):
                 changed, new_crange, new_result = f(crange, result)
                 if changed:
-                    if i == 2:
-                        e3 = True
-                    else:
-                        if e3:
-                            e3 = False
-                            if i == 0:
-                                new_result += "1"
-                            else:
-                                new_result += "0"
-
                     crange = new_crange
                     result = new_result
                     print(f"E{i+1} -> 0.{result} -> [{crange[0]},{crange[1]})")
